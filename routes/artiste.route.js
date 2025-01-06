@@ -105,4 +105,13 @@ router.put('/', upload.single("image"), async function(req, res, next) {
     }
 })
 
+router.get('/search', async function(req, res, next) {
+    try {
+        res.json(await artisteserv.recherche(req.query.text));
+    } catch(err) {
+        console.error(`error while searching for student`, err.meaage);
+        next(err);
+    }
+})
+
 module.exports = router;

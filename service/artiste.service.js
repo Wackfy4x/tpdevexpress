@@ -8,8 +8,8 @@ const config = require('../config');
         console.log(artist);        
         const artistResult = await db.query(
             `INSERT INTO artists (
-            image, name, stagename, albumcount, label, publisher, careerstart
-            ) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            image, name, stagename, albumcount, label, publisher, careerstart, note
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
             [
             artist.image,
             artist.name,
@@ -17,7 +17,8 @@ const config = require('../config');
             artist.albumcount,
             artist.label,
             artist.publisher,
-            artist.careerstart
+            artist.careerstart,
+            0
         ]
         );
         console.log(artistResult);        
@@ -127,6 +128,25 @@ const config = require('../config');
         };
     }
 
+    async function recherche(text) {
+        try {
+            const searchTerm = `%${text}%`;
+            const rows = await db.query(
+                `SELECT * FROM artists WHERE 
+                name LIKE ?
+                or stagename LIKE ?`,
+                [searchTerm, searchTerm]
+            );
+            const data = helper.emptyorRows(rows);
+            return {
+                data
+            };
+        } catch (error) {
+            console.error('Error selecting student:', error);
+            throw error;
+        }
+    }
+
 
     module.exports = {
         create,
@@ -134,5 +154,6 @@ const config = require('../config');
         findAll,
         createnetwork,
         findById,
-        deletea
+        deletea,
+        recherche
     }
