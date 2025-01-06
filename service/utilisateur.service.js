@@ -23,6 +23,7 @@ async function register(user){
             "INSERT INTO utilisateur (email, password) VALUES (?,?)",
             [user.email, await encryptPassword(user.password)]
         )
+        console.log(rows)
         const data=helper.emptyorRows(rows);
         
         return {
