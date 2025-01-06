@@ -2,8 +2,6 @@ const db = require('./db.service');
 const helper = require('../helper');
 const config = require('../config');
 
-
-
     async function create(artist) {
         console.log(artist);        
         const artistResult = await db.query(
