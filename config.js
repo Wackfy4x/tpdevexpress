@@ -5,7 +5,8 @@ const config = {
         user: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
-        connectTimeout: 60000
+        connectTimeout: 1000,
+        connectionLimit: 10000  // ajustez selon vos besoins
     },
     listPerPage: 10,
 };
